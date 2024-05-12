@@ -18,6 +18,8 @@ namespace Projectile
         private PhotonView _view;
         private SpriteRenderer _spriteRenderer;
 
+        //bool _isHit = false;
+
         void Start()
         {
             _prCount = prLife;
@@ -25,34 +27,38 @@ namespace Projectile
             _spriteRenderer = GetComponent<SpriteRenderer>();
             if (!_view.IsMine)
             {
-                _spriteRenderer.color = Color.red; 
+                _spriteRenderer.color = Color.red;
             }
         }
 
         void Update()
         {
-            transform.Translate(Vector2.up * (speed * Time.deltaTime));
+           /* if (!_isHit)
+            {*/
+                transform.Translate(Vector2.up * (speed * Time.deltaTime));
 
-            _prCount -= Time.deltaTime;
-            if (_prCount <= 0)
-            {
-                Destroy(gameObject);
-            }
-        }
-
-        private void FixedUpdate()
-        {
-            RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, transform.up,0.1f, layerMask);
-            Debug.Log("Hit object: " + hitInfo.collider.gameObject.name);
-            if (hitInfo.collider != null)
-            {
-                Health enemyHp = hitInfo.collider.transform.GetComponent<Health>();
-                if (enemyHp != null)
+                _prCount -= Time.deltaTime;
+                if (_prCount <= 0)
                 {
-                    enemyHp.TakeDamage(damage);
+                    Destroy(gameObject);
                 }
+
+                RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, transform.up, 0.1f, layerMask);
+                Debug.Log("Hit object: " + hitInfo.collider.gameObject.name);
+                if (hitInfo.collider != null)
+                {
+                    Health enemyHp = hitInfo.collider.transform.GetComponent<Health>();
+                    if (enemyHp != null)
+                    {
+                        enemyHp.TakeDamage(damage);
+                    }
+                    PhotonNetwork.Destroy(gameObject);
+                }
+            //}
+            /*else
+            {
                 PhotonNetwork.Destroy(gameObject);
-            }
+            }*/
         }
     }
 }
