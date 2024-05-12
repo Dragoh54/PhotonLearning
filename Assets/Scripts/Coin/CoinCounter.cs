@@ -15,7 +15,7 @@ namespace Coin
 
         void FixedUpdate()
         {
-            _text.text = _counter.GetCoins().ToString();
+            _text.text = $"Score: {_counter.GetCoins()}";
         }
     }
 }
