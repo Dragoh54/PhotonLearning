@@ -20,6 +20,7 @@ namespace ServerScripts
         public float minX, minY, maxX, maxY;
 
         bool _isStarted = false;
+        bool _isLocalAlive = true;
         int _playerCount;
         
         [SerializeField] EndgameManager _endgame;
@@ -28,7 +29,6 @@ namespace ServerScripts
         {
             _endgame.SetWinStatus(false);
             _endgame.SetActiveEndgame(false);
-            //Time.timeScale = 1f;
             Vector2 spawnPosition = new Vector2(Random.Range(minX, maxX), Random.Range(minY, maxY));
             _spawnedPlayer = PhotonNetwork.Instantiate(player.name, spawnPosition, Quaternion.identity);
             SetPlayerActive(false);
@@ -49,9 +49,8 @@ namespace ServerScripts
             _playerCount = GameObject.FindGameObjectsWithTag("Player").Length;
             //Debug.Log(_playerCount);
 
-            if (_isStarted && _playerCount == 1)
+            if (_isStarted && _playerCount == 1 && _isLocalAlive)
             {
-                //Time.timeScale = 0f;
                 _endgame.SetWinStatus(true);
                 _endgame.SetActiveEndgame(true);
             }
@@ -78,6 +77,8 @@ namespace ServerScripts
             _spawnedPlayer.GetComponent<PlayerController>().enabled = active;
             _spawnedPlayer.GetComponentInChildren<Projectile.ProjectileLauncher>().enabled = active;
         }
+
+        public bool IsLocalAlive { get { return _isLocalAlive; } set { _isLocalAlive = value; } }
 
         IEnumerator WaitForStart(float time)
         {

@@ -24,7 +24,7 @@ namespace Coin
         {
             if (collision.gameObject.CompareTag("Coin") && _view.IsMine)
             {
-                var coin = collision.gameObject.GetComponent<Coin>();
+                var coin = collision.GetComponent<Coin>();
                 //PhotonNetwork.Destroy(collision.gameObject);
                 _coinCounter++;
                 _text.GetComponent<TMP_Text>().text = _coinCounter.ToString();

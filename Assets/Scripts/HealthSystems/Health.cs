@@ -15,12 +15,14 @@ namespace HealthSystems
         //public RectTransform healthBar;
         [SerializeField] Image _healthbar;
         EndgameManager _endgame;
+        ServerScripts.GameManager _gm;
 
         void Start()
         {
             _hp = maxHealth;
             isAlive = true;
             _endgame = FindAnyObjectByType<EndgameManager>();
+            _gm = FindAnyObjectByType<ServerScripts.GameManager>();
         }
 
         [PunRPC]
@@ -32,6 +34,9 @@ namespace HealthSystems
             {
                 _hp = 0;
                 isAlive = false;
+
+                _gm.IsLocalAlive = isAlive;
+
                 _endgame.SetWinStatus(false);
 
                 _endgame.SetActiveEndgame(true);
