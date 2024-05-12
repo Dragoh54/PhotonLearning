@@ -16,12 +16,16 @@ namespace ServerScripts
         public GameObject player;
         private GameObject _spawnedPlayer;
         public float minX, minY, maxX, maxY;
+
+        bool _isStarted;
+        int _playerCount;
         
-        private PhotonView _view;
-        private Endgame _endgame;
+        [SerializeField] EndgameManager _endgame;
 
         public void Start()
         {
+            Time.timeScale = 1f;
+            _endgame.SetActiveEndgame(false);
             Vector2 spawnPosition = new Vector2(Random.Range(minX, maxX), Random.Range(minY, maxY));
             _spawnedPlayer = PhotonNetwork.Instantiate(player.name, spawnPosition, Quaternion.identity);
             SetPlayerActive(false);
@@ -31,18 +35,27 @@ namespace ServerScripts
         {
             if (PhotonNetwork.InRoom)
             {
-                int playerCount = PhotonNetwork.CurrentRoom.PlayerCount;
+                _playerCount = PhotonNetwork.CurrentRoom.PlayerCount;
 
-                if (playerCount >= MIN_PLAYERS)
+                if (_playerCount >= MIN_PLAYERS)
                 {
                     StartGame();
                 }
+            }
+
+            _playerCount = GameObject.FindGameObjectsWithTag("Player").Length;
+
+            if (_isStarted && _playerCount == 1)
+            {
+                Time.timeScale = 0f;
+                _endgame.SetActiveEndgame(true);
             }
         }
         
         void StartGame()
         {
             SetPlayerActive(true);
+            _isStarted = true;
         }
         
         public void Leave()

@@ -4,7 +4,7 @@ using UnityEngine.Serialization;
 
 namespace HealthSystems
 {
-    public class Health : MonoBehaviour
+    public class Health : MonoBehaviourPun
     {
         public float maxHealth;
         private float _hp;
@@ -25,10 +25,19 @@ namespace HealthSystems
             {
                 _hp = 0;
                 isAlive = false;
-                PhotonNetwork.Destroy(gameObject);
+                photonView.RPC("Death", RpcTarget.AllViaServer);
+                //gameObject.SetActive(false);
+                //PhotonNetwork.Destroy(gameObject);
             }
 
             healthBar.sizeDelta = new Vector2(_hp, healthBar.sizeDelta.y);
+        }
+
+        [PunRPC]
+        void Death()
+        {
+            gameObject.SetActive(false);
+            //PhotonNetwork.Destroy(gameObject);
         }
     }
 }
