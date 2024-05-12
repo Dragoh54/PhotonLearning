@@ -56,7 +56,8 @@ namespace ServerScripts
                 lastPlayer.photonView.RPC("ShowWinScreen", RpcTarget.All);*/
                 if (lastPlayer.IsAlive && lastPlayer.photonView.IsMine)
                 {
-                    ShowWinScreen();
+                    _endgame.SetWinStatus(true, lastPlayer.Nickname);
+                    _endgame.SetActiveEndgame(true);
                 }
             }
         }

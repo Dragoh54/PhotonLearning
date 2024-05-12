@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace HealthSystems
 {
-    public class Health : MonoBehaviourPun
+    public class Health : Player.Player
     {
         public float maxHealth;
         private float _hp;
@@ -54,7 +54,7 @@ namespace HealthSystems
         [PunRPC]
         public void ShowDeathScreen()
         {
-            _endgame.SetWinStatus(false);
+            _endgame.SetWinStatus(false, Nickname);
             _endgame.SetActiveEndgame(true);
         }
     }

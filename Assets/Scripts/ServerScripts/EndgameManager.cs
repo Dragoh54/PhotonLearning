@@ -28,6 +28,11 @@ public class EndgameManager : MonoBehaviourPun
         _StatusText.text = status ? "You Win!" : "You Lose(";
     }
 
+    public void SetWinStatus(bool status, string nickname)
+    {
+        _StatusText.text = status ? $"{nickname} Win!" : $"{nickname} Lose(";
+    }
+
     public void SetScore(int score)
     {
         _ScoreText.text = $"Your score: {score}";

@@ -33,5 +33,10 @@ namespace MainMenu
         {
             PhotonNetwork.LoadLevel("Game");
         }
+
+        public void SetName()
+        {
+            PhotonNetwork.NickName = playerName.GetComponent<TMP_InputField>().text;
+        }
     }
 }
