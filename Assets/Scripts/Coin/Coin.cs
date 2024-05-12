@@ -16,16 +16,18 @@ namespace Coin
             }
         }
 
-        void Collect()
+        public void Collect()
         {
-            CoinCollector coinCollector = new CoinCollector();
-            coinCollector.AddCoin();
-            photonView.RPC("CollectCoinRPC", RpcTarget.AllBuffered);
+            /*CoinCollector coinCollector = new CoinCollector();
+            coinCollector.AddCoin();*/
+            gameObject.SetActive(false);
+            photonView.RPC("DestroyCoin", RpcTarget.AllViaServer);
         }
 
         [PunRPC]
-        void CollectCoinRPC()
+        void DestroyCoin()
         {
+            gameObject.SetActive(false);
             PhotonNetwork.Destroy(gameObject);
         }
 

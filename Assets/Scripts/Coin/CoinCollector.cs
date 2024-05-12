@@ -20,13 +20,15 @@ namespace Coin
             _text = GameObject.FindWithTag("Counter");
         }
 
-        private void OnCollisionEnter2D(Collision2D other)
+        private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (other.gameObject.CompareTag("Coin") && _view.IsMine)
+            if (collision.gameObject.CompareTag("Coin") && _view.IsMine)
             {
-                PhotonNetwork.Destroy(other.gameObject);
+                var coin = collision.gameObject.GetComponent<Coin>();
+                //PhotonNetwork.Destroy(collision.gameObject);
                 _coinCounter++;
                 _text.GetComponent<TMP_Text>().text = _coinCounter.ToString();
+                coin.Collect();
             }
         }
 

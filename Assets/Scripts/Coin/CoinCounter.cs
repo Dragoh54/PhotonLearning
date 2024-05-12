@@ -5,17 +5,17 @@ namespace Coin
 {
     public class CoinCounter : MonoBehaviour
     {
-        public GameObject text;
-        public static int Counter;
+        [SerializeField] TextMeshProUGUI _text;
+        CoinCollector _counter;
         
         void Start()
         {
-            Counter = 0;
+            _counter = FindAnyObjectByType<CoinCollector>();
         }
 
         void FixedUpdate()
         {
-            text.GetComponent<TMP_Text>().text = Counter.ToString();
+            _text.text = _counter.GetCoins().ToString();
         }
     }
 }

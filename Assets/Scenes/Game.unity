@@ -456,7 +456,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -998,6 +998,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1325593456}
+  - component: {fileID: 1325593458}
   - component: {fileID: 1325593457}
   m_Layer: 0
   m_Name: CoinManager
@@ -1030,11 +1031,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 1325593455}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 295fc645eabf4af49869103f06d45e73, type: 3}
+  m_Script: {fileID: 11500000, guid: 80679458ac450054d890ffe2154532c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _text: {fileID: 873906132}
+--- !u!114 &1325593458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1325593455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d514970594b18954290b30bb768f8d86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   coinPrefab: {fileID: 7815025232867757933, guid: 03fe22f5a2aced946a1813496e506d0a, type: 3}
-  numberOfCoins: 13
+  numberOfCoins: 5
   minX: -9
   minY: -4
   maxX: 9

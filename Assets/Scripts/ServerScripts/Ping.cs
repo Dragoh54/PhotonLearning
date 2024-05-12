@@ -15,6 +15,6 @@ public class Ping : MonoBehaviour
     public void NPing()
     {
         _nPing = PhotonNetwork.GetPing();
-        Debug.Log(_nPing);
+        //Debug.Log(_nPing);
     }
 }
