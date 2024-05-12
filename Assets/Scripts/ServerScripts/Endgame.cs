@@ -27,7 +27,7 @@ namespace ServerScripts
             {
                 GameObject playerObject =  GameObject.FindWithTag("Player");
                 Health hp = playerObject.GetComponent<Health>();
-                if (hp != null && hp.isAlive)
+                if (hp != null && hp.IsAlive)
                 {
                     lastPlayerName.GetComponent<TMP_Text>().text = player.NickName;
                     int coins = playerObject.GetComponent<CoinCollector>().GetCoins();

@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Photon.Pun;
 
-public class EndgameManager : MonoBehaviour
+public class EndgameManager : MonoBehaviourPun
 {
     [SerializeField] TextMeshProUGUI _StatusText;
     [SerializeField] TextMeshProUGUI _ScoreText;

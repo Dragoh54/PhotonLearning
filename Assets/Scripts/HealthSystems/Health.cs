@@ -10,7 +10,7 @@ namespace HealthSystems
         public float maxHealth;
         private float _hp;
 
-        public bool isAlive;
+        public bool IsAlive { get; set; }
 
         //public RectTransform healthBar;
         [SerializeField] Image _healthbar;
@@ -20,7 +20,7 @@ namespace HealthSystems
         void Start()
         {
             _hp = maxHealth;
-            isAlive = true;
+            IsAlive = true;
             _endgame = FindAnyObjectByType<EndgameManager>();
             _gm = FindAnyObjectByType<ServerScripts.GameManager>();
         }
@@ -33,19 +33,12 @@ namespace HealthSystems
             if (_hp <= 0)
             {
                 _hp = 0;
-                isAlive = false;
+                IsAlive = false;
+                
+                //_gm.IsLocalAlive = isAlive;
 
-                _gm.IsLocalAlive = isAlive;
-
-                _endgame.SetWinStatus(false);
-
-                _endgame.SetActiveEndgame(true);
-
-                if (photonView.IsMine)
-                {
-                    Death();
-                }
-                //photonView.RPC("Death", RpcTarget.AllBufferedViaServer);
+                photonView.RPC("Death", RpcTarget.AllBufferedViaServer);
+                photonView.RPC("ShowDeathScreen", RpcTarget.AllBufferedViaServer);
             }
 
             //healthBar.sizeDelta = new Vector2(_hp, healthBar.sizeDelta.y);
@@ -56,6 +49,13 @@ namespace HealthSystems
         void Death()
         {
             gameObject.SetActive(false);
+        }
+
+        [PunRPC]
+        public void ShowDeathScreen()
+        {
+            _endgame.SetWinStatus(false);
+            _endgame.SetActiveEndgame(true);
         }
     }
 }
