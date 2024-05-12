@@ -12,6 +12,8 @@ namespace Projectile
 {
     public class ProjectileLauncher : MonoBehaviour
     {
+        [SerializeField] Sound _sfx;
+
         public GameObject projectilePrefab;
         private Joystick _joystick;
 
@@ -36,6 +38,7 @@ namespace Projectile
                 if (_shootCounter <= 0 && (x != 0 || y != 0))
                 {
                     PhotonNetwork.Instantiate(projectilePrefab.name, transform.position, transform.parent.rotation);
+                    _sfx.PlaySound(0);
                     _shootCounter = shootTime;
                 }
                 _shootCounter -= Time.deltaTime;

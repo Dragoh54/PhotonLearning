@@ -7,6 +7,8 @@ namespace Coin
     {
         private bool _isCollected = false;
 
+        [SerializeField] Sound _sfx;
+
         void OnCollisionEnter2D(Collision2D other)
         {
             if (other.gameObject.CompareTag("Player") && !_isCollected)
@@ -20,6 +22,7 @@ namespace Coin
         {
             /*CoinCollector coinCollector = new CoinCollector();
             coinCollector.AddCoin();*/
+            _sfx.PlaySound(0, volume: 5f, destroy: true);
             gameObject.SetActive(false);
             photonView.RPC("DestroyCoin", RpcTarget.AllViaServer);
         }

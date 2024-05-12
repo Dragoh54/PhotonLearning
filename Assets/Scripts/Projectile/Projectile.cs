@@ -57,9 +57,9 @@ namespace Projectile
             Health enemyHp = collision.transform.GetComponent<Health>();
             if (enemyHp != null)
             {
+                PhotonNetwork.Destroy(gameObject);
                 enemyHp.photonView.RPC("TakeDamage", RpcTarget.All, damage);
             }
-            PhotonNetwork.Destroy(gameObject);
         }
     }
 }

@@ -40,7 +40,12 @@ namespace HealthSystems
                 _endgame.SetWinStatus(false);
 
                 _endgame.SetActiveEndgame(true);
-                photonView.RPC("Death", RpcTarget.AllBufferedViaServer);
+
+                if (photonView.IsMine)
+                {
+                    Death();
+                }
+                //photonView.RPC("Death", RpcTarget.AllBufferedViaServer);
             }
 
             //healthBar.sizeDelta = new Vector2(_hp, healthBar.sizeDelta.y);
