@@ -6,7 +6,7 @@ using Photon.Pun;
 
 namespace Projectile
 {
-    public class Projectile : MonoBehaviour
+    public class Projectile : MonoBehaviourPun
     {
         public float speed;
         public float damage;
@@ -17,8 +17,6 @@ namespace Projectile
 
         private PhotonView _view;
         private SpriteRenderer _spriteRenderer;
-
-        //bool _isHit = false;
 
         void Start()
         {
@@ -33,32 +31,35 @@ namespace Projectile
 
         void Update()
         {
-           /* if (!_isHit)
-            {*/
-                transform.Translate(Vector2.up * (speed * Time.deltaTime));
+            transform.Translate(Vector2.up * (speed * Time.deltaTime));
 
-                _prCount -= Time.deltaTime;
-                if (_prCount <= 0)
-                {
-                    Destroy(gameObject);
-                }
-
-                RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, transform.up, 0.1f, layerMask);
-                //Debug.Log("Hit object: " + hitInfo.collider.gameObject.name);
-                if (hitInfo.collider != null)
-                {
-                    Health enemyHp = hitInfo.collider.transform.GetComponent<Health>();
-                    if (enemyHp != null)
-                    {
-                        enemyHp.TakeDamage(damage);
-                    }
-                    PhotonNetwork.Destroy(gameObject);
-                }
-            //}
-            /*else
+            _prCount -= Time.deltaTime;
+            if (_prCount <= 0)
             {
+                Destroy(gameObject);
+            }
+
+            /*RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, transform.up, 0.1f, layerMask);
+            //Debug.Log("Hit object: " + hitInfo.collider.gameObject.name);
+            if (hitInfo.collider != null)
+            {
+                Health enemyHp = hitInfo.collider.transform.GetComponent<Health>();      
+                if (enemyHp != null)
+                {
+                    enemyHp.photonView.RPC("TakeDamage", RpcTarget.All, damage);
+                }
                 PhotonNetwork.Destroy(gameObject);
             }*/
+        }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            Health enemyHp = collision.transform.GetComponent<Health>();
+            if (enemyHp != null)
+            {
+                enemyHp.photonView.RPC("TakeDamage", RpcTarget.All, damage);
+            }
+            PhotonNetwork.Destroy(gameObject);
         }
     }
 }
