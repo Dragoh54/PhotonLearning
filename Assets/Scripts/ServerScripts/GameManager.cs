@@ -47,16 +47,14 @@ namespace ServerScripts
             }
 
             _playerCount = GameObject.FindGameObjectsWithTag("Player").Length;
-            Debug.Log(_isLocalAlive);
+            //Debug.Log(_isLocalAlive);
 
             if (_isStarted && _playerCount == 1 && _isLocalAlive)
             {
                 var lastPlayer = GameObject.FindGameObjectWithTag("Player").GetComponent<HealthSystems.Health>();
-                /*Debug.Log($"lastPlayer: {lastPlayer.IsAlive}");
-                lastPlayer.photonView.RPC("ShowWinScreen", RpcTarget.All);*/
                 if (lastPlayer.IsAlive && lastPlayer.photonView.IsMine)
                 {
-                    _endgame.SetWinStatus(true, lastPlayer.Nickname);
+                    _endgame.SetWinStatus(true);
                     _endgame.SetActiveEndgame(true);
                 }
             }

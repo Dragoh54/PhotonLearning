@@ -10,13 +10,20 @@ namespace Player
     {
         [SerializeField] TextMeshProUGUI _text;
 
-        readonly string? _nickname = PhotonNetwork.NickName;
+        string _nickname;
 
         private void Start()
         {
-            _text.text = _nickname;
+            photonView.RPC("SetNick", RpcTarget.AllBuffered, PhotonNetwork.NickName);
         }
 
-        public string? Nickname { get { return _nickname; } }
+        public string Nickname { get { return _nickname; } }
+
+        [PunRPC]
+        void SetNick(string nickname)
+        {
+            _nickname = nickname;
+            _text.text = Nickname;
+        }
     }
 }
